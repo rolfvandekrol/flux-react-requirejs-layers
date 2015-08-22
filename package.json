@@ -4,5 +4,14 @@
   "description": "Example app that shows how to use Require.js build layers in a ReactJS application using Flux stores.",
   "repository": "https://github.com/rolfvandekrol/flux-react-requirejs-layers",
   "main": "js/app.js",
-  "author": "Rolf van de Krol"
+  "author": "Rolf van de Krol",
+  "dependencies": {
+    "react": "^0.13.3",
+    "requirejs": "^2.1.20"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-react": "^3.0.1",
+    "gulp-requirejs": "^0.1.3"
+  }
 }
