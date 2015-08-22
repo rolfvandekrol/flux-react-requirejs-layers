@@ -1,0 +1,8 @@
+{
+  "name": "flux-react-requirejs-layers",
+  "version": "0.0.1",
+  "description": "Example app that shows how to use Require.js build layers in a ReactJS application using Flux stores.",
+  "repository": "https://github.com/rolfvandekrol/flux-react-requirejs-layers",
+  "main": "js/app.js",
+  "author": "Rolf van de Krol"
+}
