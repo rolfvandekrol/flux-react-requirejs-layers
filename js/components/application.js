@@ -12,7 +12,7 @@ define(
               Example Flux &amp; ReactJS application that uses Require.js build
               layers to load parts of the application gradually.
             </p>
-            <Plugin />
+            <Plugin plugin="components/plugins/testplugin" />
           </div>
         );
       }
