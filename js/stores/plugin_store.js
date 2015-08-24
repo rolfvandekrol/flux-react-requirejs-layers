@@ -1,16 +1,29 @@
 
-define(['fbemitter', 'assign'], function (fbemitter, assign) {
-  var CHANGE_EVENT = 'change';
+define(['fbemitter'], function (fbemitter) {
+  var LOAD_EVENT = 'change';
 
-  return assign({}, fbemitter.EventEmitter.prototype, {
-    emitChange: function() {
-      this.emit(CHANGE_EVENT);
+  var _plugins = [];
+
+  var events = new fbemitter.EventEmitter();
+
+  return {
+    emitLoad: function() {
+      events.emit(LOAD_EVENT);
     },
-    addChangeListener: function(callback) {
-      this.on(CHANGE_EVENT, callback);
+    addLoadListener: function(callback) {
+      events.addListener(LOAD_EVENT, callback);
     },
-    removeChangeListener: function(callback) {
-      this.removeListener(CHANGE_EVENT, callback);
+    removeLoadListener: function(callback) {
+      events.removeListener(LOAD_EVENT, callback);
     },
-  });
+
+    loaded: function(name) {
+      return (_plugins.indexOf(name) !== -1);
+    },
+
+    setLoaded: function(name) {
+      _plugins.push(name);
+      this.emitLoad();
+    }
+  };
 });
