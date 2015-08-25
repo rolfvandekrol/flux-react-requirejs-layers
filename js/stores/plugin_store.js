@@ -1,12 +1,12 @@
 
-define(['fbemitter'], function (fbemitter) {
+define(['fbemitter', 'dispatcher', 'constants'], function (fbemitter, Dispatcher, Constants) {
   var LOAD_EVENT = 'change';
 
   var _plugins = [];
 
   var events = new fbemitter.EventEmitter();
 
-  return {
+  var API = {
     emitLoad: function() {
       events.emit(LOAD_EVENT);
     },
@@ -23,7 +23,17 @@ define(['fbemitter'], function (fbemitter) {
 
     setLoaded: function(name) {
       _plugins.push(name);
-      this.emitLoad();
+      API.emitLoad();
     }
   };
+
+  API.dispatchToken = Dispatcher.register(function(action) {
+    switch(action.type) {
+      case Constants.ActionTypes.PLUGIN_LOADED:
+        API.setLoaded(action.plugin);
+        break;
+    }
+  });
+
+  return API;
 });

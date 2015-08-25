@@ -1,8 +1,8 @@
 
 
 define(
-  ['react', 'stores/plugin_store', 'actions/plugin_action_creators'],
-  function(React, PluginStore) {
+  ['react', 'stores/plugin_store', 'actions/plugin_action_creators', 'require'],
+  function(React, PluginStore, Actions, require) {
     var getStateFromStore = function(plugin) {
       return {
         loaded: PluginStore.loaded(plugin)
@@ -21,13 +21,19 @@ define(
       },
 
       render: function() {
-        var today = new Date();
-        var d = today.toISOString();
-        return (
-          <div className="plugin">
-            {d + " " + this.props.plugin + " " + (this.state.loaded ? "loaded" : "unloaded")}
-          </div>
-        );
+        if (this.state.loaded) {
+          return (
+            <div className="plugin">
+              {React.createElement(require(this.props.plugin))}
+            </div>
+          );
+        } else {
+          return (
+            <div className="plugin-loading">
+              Loading...
+            </div>
+          );
+        }
       },
 
       componentDidMount: function() {
@@ -36,6 +42,10 @@ define(
 
       componentWillUnmount: function() {
         PluginStore.removeLoadListener(this._onLoad);
+      },
+
+      componentWillMount: function() {
+        Actions.loadPlugin(this.props.plugin);
       },
 
       _onLoad: function() {
