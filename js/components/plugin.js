@@ -1,7 +1,7 @@
 
 
 define(
-  ['react', 'stores/plugin_store'],
+  ['react', 'stores/plugin_store', 'actions/plugin_action_creators'],
   function(React, PluginStore) {
     var getStateFromStore = function(plugin) {
       return {
