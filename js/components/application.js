@@ -1,7 +1,7 @@
 
 define(
-  ['react', 'components/plugin'],
-  function(React, Plugin) {
+  ['react', 'components/plugin_buttons'],
+  function(React, PluginButtons) {
     return React.createClass({
       displayName: 'Application',
       render: function() {
@@ -12,7 +12,7 @@ define(
               Example Flux &amp; ReactJS application that uses Require.js build
               layers to load parts of the application gradually.
             </p>
-            <Plugin plugin="components/plugins/testplugin" />
+            <PluginButtons />
           </div>
         );
       }

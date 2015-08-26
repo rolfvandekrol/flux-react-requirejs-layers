@@ -31,3 +31,13 @@ h1 {
   font-weight: 700;
   margin: 0;
 }
+
+button {
+  border: 1px solid #e7eaec;
+  background: #f3f3f3;
+  padding: 10px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 700;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
