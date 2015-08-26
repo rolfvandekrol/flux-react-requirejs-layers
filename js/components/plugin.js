@@ -24,7 +24,7 @@ define(
         if (this.state.loaded) {
           return (
             <div className="plugin">
-              {React.createElement(require(this.props.plugin))}
+              {React.createElement(require(this.props.plugin), null)}
             </div>
           );
         } else {
