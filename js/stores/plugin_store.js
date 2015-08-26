@@ -1,8 +1,10 @@
 
 define(['fbemitter', 'dispatcher', 'constants'], function (fbemitter, Dispatcher, Constants) {
-  var LOAD_EVENT = 'change';
+  var LOAD_EVENT = 'load';
+  var ENABLE_EVENT = 'enable';
 
   var _plugins = [];
+  var _enabled = null;
 
   var events = new fbemitter.EventEmitter();
 
@@ -20,10 +22,27 @@ define(['fbemitter', 'dispatcher', 'constants'], function (fbemitter, Dispatcher
     loaded: function(name) {
       return (_plugins.indexOf(name) !== -1);
     },
-
     setLoaded: function(name) {
       _plugins.push(name);
       API.emitLoad();
+    },
+
+    emitEnable: function() {
+      events.emit(ENABLE_EVENT);
+    },
+    addEnableListener: function(callback) {
+      events.addListener(ENABLE_EVENT, callback);
+    },
+    removeEnableListener: function(callback) {
+      events.removeListener(ENABLE_EVENT, callback);
+    },
+
+    enabled: function() {
+      return _enabled;
+    },
+    enable: function(name) {
+      _enabled = name;
+      API.emitEnable();
     }
   };
 
@@ -31,6 +50,9 @@ define(['fbemitter', 'dispatcher', 'constants'], function (fbemitter, Dispatcher
     switch(action.type) {
       case Constants.ActionTypes.PLUGIN_LOADED:
         API.setLoaded(action.plugin);
+        break;
+      case Constants.ActionTypes.PLUGIN_ENABLED:
+        API.enable(action.plugin);
         break;
     }
   });

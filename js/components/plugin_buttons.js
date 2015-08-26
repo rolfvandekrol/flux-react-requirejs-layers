@@ -1,7 +1,10 @@
 
 define(
-  ['react'],
-  function(React) {
+  ['react', 'actions/plugin_action_creators'],
+  function(React, Actions) {
+    var ASYNC = 'async';
+    var DIRECT = 'direct';
+
     return React.createClass({
       displayName: 'PluginButtons',
       render: function() {
@@ -10,22 +13,22 @@ define(
             <button 
               onClick={this._onClick}
               data-plugin-name="components/plugins/testplugin1"
-              data-plugin-loader="direct"
+              data-plugin-loader={DIRECT}
             >Plugin 1 Direct</button>
             <button
               onClick={this._onClick}
               data-plugin-name="components/plugins/testplugin1"
-              data-plugin-loader="async"
+              data-plugin-loader={ASYNC}
             >Plugin 1 Async</button>
             <button
               onClick={this._onClick}
               data-plugin-name="components/plugins/testplugin2"
-              data-plugin-loader="direct"
+              data-plugin-loader={DIRECT}
             >Plugin 2 Direct</button>
             <button
               onClick={this._onClick}
               data-plugin-name="components/plugins/testplugin2"
-              data-plugin-loader="async"
+              data-plugin-loader={ASYNC}
             >Plugin 2 Async</button>
           </div>
         );
@@ -37,7 +40,15 @@ define(
         var button = e.target;
         var loader = button.getAttribute('data-plugin-loader');
         var plugin = button.getAttribute('data-plugin-name');
-        console.log(loader, plugin);
+
+        switch (loader) {
+          case ASYNC:
+            Actions.enablePluginAsync(plugin);
+            break;
+          case DIRECT:
+            Actions.enablePluginDirect(plugin);
+            break;
+        }
       }
     });
   }
