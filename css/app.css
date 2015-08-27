@@ -41,3 +41,9 @@ button {
   margin-right: 20px;
   margin-bottom: 20px;
 }
+
+.plugin-container {
+  background: #f3f3f3;
+  padding: 20px;
+  margin-top: 20px;
+}
