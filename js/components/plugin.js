@@ -50,6 +50,16 @@ define(
         }
       },
 
+      componentWillReceiveProps: function(props) {
+        var new_state = getStateFromStore(props.plugin);
+        this.setState(new_state);
+
+        if (!new_state.loaded) {
+          Actions.loadPlugin(props.plugin);
+        }
+
+      },
+
       _onLoad: function() {
         this.setState(getStateFromStore(this.props.plugin));
       }
