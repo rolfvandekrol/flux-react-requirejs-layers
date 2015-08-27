@@ -48,9 +48,49 @@ gulp.task('fbemitter', function() {
     .pipe(gulp.dest('build'));
 });
 
-gulp.task('default', ['transform', 'require', 'react', 'flux', 'fbemitter'], function() {
+gulp.task('build', ['transform', 'require', 'react', 'flux', 'fbemitter']);
 
+gulp.task('optimize', ['optimize-application', 'optimize-testplugin1', 'optimize-testplugin2']);
+
+gulp.task('optimize-application', ['build'], function() {
+  return rjs({
+      baseUrl: 'build/',
+      out: 'application.js',
+      name: 'application',
+      paths: {
+        "react" : "react-with-addons"
+      },
+    })
+    .pipe(gulp.dest('./build/optimize'));
 });
+
+gulp.task('optimize-testplugin1', ['build'], function() {
+  return rjs({
+      baseUrl: 'build/',
+      out: 'testplugin1.js',
+      name: 'components/plugins/testplugin1',
+      paths: {
+        "react" : "react-with-addons"
+      },
+      excludeShallow: ['react'],
+    })
+    .pipe(gulp.dest('./build/optimize'));
+});
+
+gulp.task('optimize-testplugin2', ['build'], function() {
+  return rjs({
+      baseUrl: 'build/',
+      out: 'testplugin2.js',
+      name: 'components/plugins/testplugin2',
+      paths: {
+        "react" : "react-with-addons"
+      },
+      excludeShallow: ['react'],
+    })
+    .pipe(gulp.dest('./build/optimize'));
+});
+
+gulp.task('default', ['optimize']);
 
 gulp.task('watch', function () {
   watch('js/**/*', function() {

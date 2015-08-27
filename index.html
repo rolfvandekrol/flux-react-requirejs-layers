@@ -8,6 +8,19 @@
   </head>
   <body>
     <div id="wrapper"></div>
-    <script data-main="build/application.js" src="build/require.js"></script>
+
+    <script src="build/require.js"></script>
+    <script>
+      require.config({
+        'baseUrl' : 'build/',
+        'paths' : {
+          'react' : 'react-with-addons',
+          'application': 'optimize/application',
+          'components/plugins/testplugin1': 'optimize/testplugin1',
+          'components/plugins/testplugin2': 'optimize/testplugin2'
+        },
+      });
+      require(["application"]);
+    </script>
   </body>
 </html>
