@@ -8,6 +8,7 @@ define(
     return React.createClass({
       displayName: 'PluginButtons',
       render: function() {
+        // Render a set of buttons to enable the plugins.
         return (
           <div className="plugin-buttons">
             <button 
@@ -37,6 +38,8 @@ define(
       _onClick: function(e) {
         e.preventDefault();
 
+        // Figure out which loader logic and the plugin name and run the plugin
+        // name through the right loader logic.
         var button = e.target;
         var loader = button.getAttribute('data-plugin-loader');
         var plugin = button.getAttribute('data-plugin-name');

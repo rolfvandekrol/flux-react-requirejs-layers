@@ -1,61 +1,74 @@
 
-define(['fbemitter', 'dispatcher', 'constants'], function (fbemitter, Dispatcher, Constants) {
-  var LOAD_EVENT = 'load';
-  var ENABLE_EVENT = 'enable';
+define(
+  ['fbemitter', 'dispatcher', 'constants'], 
+  function (fbemitter, Dispatcher, Constants) {
+    // Constants for the internal event names.
+    var LOAD_EVENT = 'load';
+    var ENABLE_EVENT = 'enable';
 
-  var _plugins = [];
-  var _enabled = null;
+    // Internal storage variables.
+    var _plugins = [];
+    var _enabled = null;
 
-  var events = new fbemitter.EventEmitter();
+    // Initialize the EventEmitter.
+    var events = new fbemitter.EventEmitter();
 
-  var API = {
-    emitLoad: function() {
-      events.emit(LOAD_EVENT);
-    },
-    addLoadListener: function(callback) {
-      events.addListener(LOAD_EVENT, callback);
-    },
-    removeLoadListener: function(callback) {
-      events.removeListener(LOAD_EVENT, callback);
-    },
+    var API = {
+      // Event methods for the plugin loaded storage.
+      emitLoad: function() {
+        events.emit(LOAD_EVENT);
+      },
+      addLoadListener: function(callback) {
+        events.addListener(LOAD_EVENT, callback);
+      },
+      removeLoadListener: function(callback) {
+        events.removeListener(LOAD_EVENT, callback);
+      },
 
-    loaded: function(name) {
-      return (_plugins.indexOf(name) !== -1);
-    },
-    setLoaded: function(name) {
-      _plugins.push(name);
-      API.emitLoad();
-    },
+      // Check if a plugin is loaded.
+      loaded: function(name) {
+        return (_plugins.indexOf(name) !== -1);
+      },
+      // Mark a plugin as loaded.
+      setLoaded: function(name) {
+        _plugins.push(name);
+        API.emitLoad();
+      },
 
-    emitEnable: function() {
-      events.emit(ENABLE_EVENT);
-    },
-    addEnableListener: function(callback) {
-      events.addListener(ENABLE_EVENT, callback);
-    },
-    removeEnableListener: function(callback) {
-      events.removeListener(ENABLE_EVENT, callback);
-    },
+      // Event methods for the plugin enable storage.
+      emitEnable: function() {
+        events.emit(ENABLE_EVENT);
+      },
+      addEnableListener: function(callback) {
+        events.addListener(ENABLE_EVENT, callback);
+      },
+      removeEnableListener: function(callback) {
+        events.removeListener(ENABLE_EVENT, callback);
+      },
 
-    enabled: function() {
-      return _enabled;
-    },
-    enable: function(name) {
-      _enabled = name;
-      API.emitEnable();
-    }
-  };
+      // Check which plugin is enabled.
+      enabled: function() {
+        return _enabled;
+      },
+      // Mark a plugin as enabled.
+      enable: function(name) {
+        _enabled = name;
+        API.emitEnable();
+      }
+    };
 
-  API.dispatchToken = Dispatcher.register(function(action) {
-    switch(action.type) {
-      case Constants.ActionTypes.PLUGIN_LOADED:
-        API.setLoaded(action.plugin);
-        break;
-      case Constants.ActionTypes.PLUGIN_ENABLED:
-        API.enable(action.plugin);
-        break;
-    }
-  });
+    // Link the storage to the Dispatcher.
+    API.dispatchToken = Dispatcher.register(function(action) {
+      switch(action.type) {
+        case Constants.ActionTypes.PLUGIN_LOADED:
+          API.setLoaded(action.plugin);
+          break;
+        case Constants.ActionTypes.PLUGIN_ENABLED:
+          API.enable(action.plugin);
+          break;
+      }
+    });
 
-  return API;
-});
+    return API;
+  }
+);
