@@ -45,7 +45,9 @@ define(
       },
 
       componentWillMount: function() {
-        Actions.loadPlugin(this.props.plugin);
+        if (!this.state.loaded) {
+          Actions.loadPlugin(this.props.plugin);
+        }
       },
 
       _onLoad: function() {
