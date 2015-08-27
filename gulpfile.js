@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var babel = require("gulp-babel");
 var watch = require('gulp-watch');
 var rjs = require('gulp-requirejs');
-// var convert = require("gulp-require-convert");
 var rename = require("gulp-rename");
 var browserify = require('browserify');
 var source = require('vinyl-source-stream');
@@ -28,13 +27,6 @@ gulp.task('flux', function() {
   return gulp.src('node_modules/flux/dist/Flux.js')
     .pipe(gulp.dest('build'));
 });
-
-// gulp.task('assign', function() {
-//   return gulp.src('node_modules/object-assign/index.js')
-//     .pipe(convert())
-//     .pipe(rename('assign.js'))
-//     .pipe(gulp.dest('build'));
-// });
 
 gulp.task('fbemitter', function() {
   var b = browserify({
