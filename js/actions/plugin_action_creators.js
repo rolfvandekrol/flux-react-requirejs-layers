@@ -38,8 +38,8 @@ define(
 
       enablePluginAsync: function(name) {
         pluginLoader(name, function(name) {
-          dispatchEnable(name);
           dispatchLoaded(name);
+          dispatchEnable(name);
         });
       }
     };
