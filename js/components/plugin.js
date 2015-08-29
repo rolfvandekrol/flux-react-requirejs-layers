@@ -41,17 +41,15 @@ define(
       // Link to the PluginStore events to update the state.
       componentDidMount: function() {
         PluginStore.addLoadListener(this._onLoad);
-      },
-      componentWillUnmount: function() {
-        PluginStore.removeLoadListener(this._onLoad);
-      },
 
-      // Try to load the plugin, if it is not loaded yet. This is only used in
-      // the Direct loading logic.
-      componentWillMount: function() {
+        // Try to load the plugin, if it is not loaded yet. This is only used in
+        // the Direct loading logic.
         if (!this.state.loaded) {
           Actions.loadPlugin(this.props.plugin);
         }
+      },
+      componentWillUnmount: function() {
+        PluginStore.removeLoadListener(this._onLoad);
       },
 
       // Regenerate the state when the props change, and run the same logic as
