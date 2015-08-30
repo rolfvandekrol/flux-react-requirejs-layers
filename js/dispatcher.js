@@ -1,6 +1,6 @@
 
 define(
-  ['Flux'],
+  ['flux'],
   function (Flux) {
     var dispatcher = new Flux.Dispatcher();
     return dispatcher;

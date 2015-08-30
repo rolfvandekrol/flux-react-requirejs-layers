@@ -26,6 +26,7 @@ gulp.task('react', function() {
 });
 gulp.task('flux', function() {
   return gulp.src('node_modules/flux/dist/Flux.js')
+    .pipe(rename('flux.js'))
     .pipe(gulp.dest('build'));
 });
 gulp.task('fbemitter', function() {
