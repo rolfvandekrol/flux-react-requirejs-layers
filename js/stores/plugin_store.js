@@ -13,11 +13,16 @@ define(
     // Initialize the EventEmitter.
     var events = new fbemitter.EventEmitter();
 
+    // Emit the load event.
+    var emitLoad = function() {
+      events.emit(LOAD_EVENT);
+    };
+    var emitEnable = function() {
+      events.emit(ENABLE_EVENT);
+    };
+
     var API = {
       // Event methods for the plugin loaded storage.
-      emitLoad: function() {
-        events.emit(LOAD_EVENT);
-      },
       addLoadListener: function(callback) {
         events.addListener(LOAD_EVENT, callback);
       },
@@ -32,13 +37,10 @@ define(
       // Mark a plugin as loaded.
       setLoaded: function(name) {
         _plugins.push(name);
-        API.emitLoad();
+        emitLoad();
       },
 
       // Event methods for the plugin enable storage.
-      emitEnable: function() {
-        events.emit(ENABLE_EVENT);
-      },
       addEnableListener: function(callback) {
         events.addListener(ENABLE_EVENT, callback);
       },
@@ -53,7 +55,7 @@ define(
       // Mark a plugin as enabled.
       enable: function(name) {
         _enabled = name;
-        API.emitEnable();
+        emitEnable();
       }
     };
 
