@@ -3,7 +3,7 @@
 Example application that shows how to use Require.js build layers in a ReactJS
 application using Flux stores. This repository contains the code that
 accompanies the blogpost 
-[Lazy loading React Components using RequireJS and Flux](http://add.link.here).
+[Lazy loading React Components using RequireJS and Flux](https://medium.com/@rolfvandekrol/lazy-loading-react-components-using-requirejs-and-flux-d1f5b01e501f).
 
 ## Running
 
